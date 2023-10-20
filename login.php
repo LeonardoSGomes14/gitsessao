@@ -32,7 +32,7 @@ if ($_SERVE["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="pt-BR">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title> Página de Login</title>
 </head>
 <body>
 
