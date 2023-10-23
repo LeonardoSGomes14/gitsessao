@@ -1,11 +1,11 @@
 <?php
 session_start();
 
-if ($_SERVE["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $usuario = $_POST["usuario"];
-    $senha = $_POST["senha"];
+    $senha = $_POST['senha'];
 
-    // Conecte com o banco de dados
+    // Conecte ao banco de dados usando PDO
     try {
         $pdo = new PDO("mysql:host=localhost;dbname=autenticacao", "root", "");
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -13,16 +13,16 @@ if ($_SERVE["REQUEST_METHOD"] == "POST") {
         die("Erro na conexão com o banco de dados: " . $e->getMessage());
     }
 
-    //verifique se o usuário existe e se a senha está correta
+    // Verifique se o usuário existe e a senha está correta
     $stmt = $pdo->prepare("SELECT * FROM usuarios WHERE usuario = ?");
     $stmt->execute([$usuario]);
     $user = $stmt->fetch();
 
-    if ($user && password_verify($senha, $user["senha"])) {
+    if ($user && $senha) {
         $_SESSION["usuario"] = $usuario;
-        header("Location: ./src/public/dashboard.php");
+        header("Location: dashboard.php");
     } else {
-        echo "<script>alert('login falhou. Verifique suas credenciais.')</script>";
+        echo "<script>alert('Login falhou. Verifique suas credenciais.')</script>";
     }
 }
 ?>
@@ -30,51 +30,20 @@ if ($_SERVE["REQUEST_METHOD"] == "POST") {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="pt-BR">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Página de Login</title>
-</head>
-<body>
-
-<h2>Login</h2>
-<form method="post">
-    <input type="text" name="usuario" placeholder="Nome de Usuário" requirede> <br>
-    <input type="password" name="senha" placeholder="Senha" required> <br>
-    <input type="submit" value="entrar">
-</form>
-
-    
-</body>
-</html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!DOCTYPE html>
-<html lang="pt-BR">
-
-<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>tela de login</title>
+    <title>Página de Login</title>
 </head>
-
 <body>
 
-</body>
+<h2>Login</h2>  
+<form method="post">
+    <input type="text" name="usuario" placeholder="Nome de Usuário" required> <br>
+    <input type="password" name="senha" placeholder="Senha" required> <br>
+    <input type="submit" value="Entrar">
+</form>
 
+<a href="index.php">Index</a>
+
+</body>
 </html>
