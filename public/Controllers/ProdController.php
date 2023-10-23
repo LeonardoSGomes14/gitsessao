@@ -13,6 +13,18 @@ public function __construct($pdo) {
         $this->prodModel->criarProd($nome, $quantia, $preco);
     }
 
+    public function listarProd() {
+        return $this->prodModel->listarProd();
+    }
 
+    public function exibirListaProd() {
+        $prod = $this->prodModel->listarProd();
+        include 'views/produtos/lista.php';
+    }
+    
+    public function atualizarProd($id, $nome, $quantia, $preco) {
+        $this->prodModel->atualizarProd($id, $nome, $quantia, $preco);
+    }
+
+    
 }
-    ?>  

@@ -13,6 +13,16 @@ public function __construct($pdo) {
         $this->regModel->criarReg($usuario, $email, $senha);
     }
 
+    public function listarReg() {
+        return $this->regModel->listarReg();
+    }
 
+    public function exibirListarReg() {
+        $prod = $this->regModel->listarReg();
+        include 'views/usuarios/lista.php';
+    }
+    
+    public function atualizarReg($id, $usuario, $email, $senha) {
+        $this->regModel->atualizarReg($id, $usuario, $email, $senha);
+    }
 }
-    ?>  
